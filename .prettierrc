@@ -1,0 +1,7 @@
+{
+  "printWidth": 100,
+  "singleQuote": false,
+  "useTabs": false,
+  "tabWidth": 2,
+  "plugins": ["prettier-plugin-sort-imports"]
+}
