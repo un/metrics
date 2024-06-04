@@ -2,6 +2,7 @@ import { dataClient } from "../db/data-client";
 import { snapshots } from "../db/schema";
 import { setSnapshot } from "../cache";
 import { db } from "../db";
+import { z } from "zod";
 
 async function getCurrentTotal(table: string) {
   const { rows } = await dataClient.execute(`SELECT id FROM ${table} ORDER BY id DESC LIMIT 0, 1`);
@@ -48,10 +49,28 @@ async function getPayingMembersCount() {
   return Number(rows[0]?.count) ?? 0;
 }
 
+async function getGithubStats() {
+  const stargazers = await fetch("https://api.github.com/repos/un/inbox")
+    .then((r) => r.json())
+    .then((d) =>
+      z
+        .object({ stargazers_count: z.number() })
+        .transform(({ stargazers_count }) => stargazers_count)
+        .parse(d),
+    );
+  const contributors = await fetch("https://api.github.com/repos/un/inbox/contributors")
+    .then((r) => r.json())
+    .then((d) => z.array(z.unknown()).parse(d).length);
+  return { stargazers, contributors };
+}
+
 export async function takeSnapshot() {
-  const counts = await getTableCounts();
-  const payingOrgs = await getPayingOrgCount();
-  const payingMembers = await getPayingMembersCount();
+  const [counts, payingOrgs, payingMembers, githubStats] = await Promise.all([
+    getTableCounts(),
+    getPayingOrgCount(),
+    getPayingMembersCount(),
+    getGithubStats(),
+  ]);
   const [snapshot] = await db
     .insert(snapshots)
     .values({
@@ -67,6 +86,8 @@ export async function takeSnapshot() {
       totalEmailIdentities: counts.email_identities,
       totalPayingOrgs: payingOrgs,
       totalPayingMembers: payingMembers,
+      totalGithubContributors: githubStats.contributors,
+      totalGithubStars: githubStats.stargazers,
     })
     .returning();
   if (!snapshot) throw new Error("Failed to take snapshot");

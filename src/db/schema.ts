@@ -15,4 +15,6 @@ export const snapshots = pgTable("snapshots", {
   totalEmailIdentities: integer("total_email_identities").notNull(),
   totalPayingOrgs: integer("total_paying_orgs").notNull(),
   totalPayingMembers: integer("total_paying_members").notNull(),
+  totalGithubStars: integer("total_github_stars").notNull(),
+  totalGithubContributors: integer("total_github_repos").notNull(),
 });

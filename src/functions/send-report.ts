@@ -79,6 +79,19 @@ export async function sendReport(newSnapshot: Snapshot, lastSnapshot: Snapshot |
             value: formatMetrics(newSnapshot.totalPayingMembers, lastSnapshot?.totalPayingMembers),
             inline: true,
           },
+          {
+            name: "Total Github Contributors",
+            value: formatMetrics(
+              newSnapshot.totalGithubContributors,
+              lastSnapshot?.totalGithubContributors,
+            ),
+            inline: true,
+          },
+          {
+            name: "Total Github Stars",
+            value: formatMetrics(newSnapshot.totalGithubStars, lastSnapshot?.totalGithubStars),
+            inline: true,
+          },
         ],
       },
     ],
