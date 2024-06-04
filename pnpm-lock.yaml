@@ -17,6 +17,9 @@ importers:
       '@t3-oss/env-core':
         specifier: ^0.10.1
         version: 0.10.1(typescript@5.4.5)(zod@3.23.8)
+      cron:
+        specifier: ^3.1.7
+        version: 3.1.7
       date-fns:
         specifier: ^3.6.0
         version: 3.6.0
@@ -579,6 +582,9 @@ packages:
       typescript:
         optional: true
 
+  '@types/luxon@3.4.2':
+    resolution: {integrity: sha512-TifLZlFudklWlMBfhubvgqTXRzLDI5pCbGa4P8a3wPyUQSW+1xQ5eDsreP9DWHX3tjq1ke96uYG/nwundroWcA==}
+
   '@types/node@20.14.0':
     resolution: {integrity: sha512-5cHBxFGJx6L4s56Bubp4fglrEpmyJypsqI6RgzMfBHWUJQGWAAi8cWcgetEbZXHYXo9C2Fa4EEds/uSyS4cxmA==}
 
@@ -631,6 +637,9 @@ packages:
 
   cookie-es@1.1.0:
     resolution: {integrity: sha512-L2rLOcK0wzWSfSDA33YR+PUHDG10a8px7rUHKWbGLP4YfbsMed2KFUw5fczvDPbT98DDe3LEzviswl810apTEw==}
+
+  cron@3.1.7:
+    resolution: {integrity: sha512-tlBg7ARsAMQLzgwqVxy8AZl/qlTc5nibqYwtNGoCrd+cV+ugI+tvZC1oT/8dFH8W455YrywGykx/KMmAqOr7Jw==}
 
   cross-spawn@7.0.3:
     resolution: {integrity: sha512-iRDPJKUPVEND7dHPO8rkbOnPpyDygcDFtWjpeWNCgy8WP2rXcxXL8TskReQl6OrB2G7+UJrags1q15Fudc7G6w==}
@@ -885,6 +894,10 @@ packages:
   lru-cache@10.2.2:
     resolution: {integrity: sha512-9hp3Vp2/hFQUiIwKo8XCeFVnrg8Pk3TYNPIR7tJADKi5YfcF7vEaK7avFHTlSy3kOKYaJQaalfEo6YuXdceBOQ==}
     engines: {node: 14 || >=16.14}
+
+  luxon@3.4.4:
+    resolution: {integrity: sha512-zobTr7akeGHnv7eBOXcRgMeCP6+uyYsczwmeRCauvpvaAltgNyTbLH/+VaEAPUeWBT+1GuNmz4wC/6jtQzbbVA==}
+    engines: {node: '>=12'}
 
   merge-stream@2.0.0:
     resolution: {integrity: sha512-abv/qOcuPfk3URPfDzmZU1LKmuw8kT+0nIHvKrKgFrwifol/doWcdA4ZqsWQ8ENrFKkd67Mfpo/LovbIUsbt3w==}
@@ -1389,6 +1402,8 @@ snapshots:
     optionalDependencies:
       typescript: 5.4.5
 
+  '@types/luxon@3.4.2': {}
+
   '@types/node@20.14.0':
     dependencies:
       undici-types: 5.26.5
@@ -1446,6 +1461,11 @@ snapshots:
   consola@3.2.3: {}
 
   cookie-es@1.1.0: {}
+
+  cron@3.1.7:
+    dependencies:
+      '@types/luxon': 3.4.2
+      luxon: 3.4.4
 
   cross-spawn@7.0.3:
     dependencies:
@@ -1691,6 +1711,8 @@ snapshots:
     optional: true
 
   lru-cache@10.2.2: {}
+
+  luxon@3.4.4: {}
 
   merge-stream@2.0.0: {}
 

@@ -3,6 +3,7 @@ import { takeSnapshot } from "./functions/take-snapshot";
 import { sendReport } from "./functions/send-report";
 import { serve } from "@hono/node-server";
 import { logger } from "hono/logger";
+import { snapshotJob } from "./cron";
 import { env } from "./env";
 import { Hono } from "hono";
 
@@ -42,6 +43,11 @@ serve(
   () => console.info(`Server running on port ${env.PORT}`),
 );
 
+snapshotJob.start();
+
 process.on("uncaughtException", (err) => console.error(err));
 process.on("unhandledRejection", (err) => console.error(err));
-process.on("exit", () => console.info("Shutting down..."));
+process.on("exit", () => {
+  console.info("Shutting down...");
+  snapshotJob.stop();
+});
