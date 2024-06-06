@@ -2,7 +2,7 @@ import type { Snapshot } from "../cache";
 import { env } from "../env";
 
 const formatMetrics = (now: number, old?: number) =>
-  `${now} (**${now > (old ?? 0) ? "+" : "-"}${now - (old ?? 0)}** vs Yesterday)`;
+  `${now} (**${now >= (old ?? 0) ? "+" : "-"}${now - (old ?? 0)}** vs Yesterday)`;
 
 export async function sendReport(newSnapshot: Snapshot, lastSnapshot: Snapshot | null) {
   const message = {
@@ -14,22 +14,22 @@ export async function sendReport(newSnapshot: Snapshot, lastSnapshot: Snapshot |
         color: 3333923,
         fields: [
           {
-            name: "Total Accounts",
+            name: "Accounts",
             value: formatMetrics(newSnapshot.totalAccounts, lastSnapshot?.totalAccounts),
             inline: true,
           },
           {
-            name: "Total Convos",
+            name: "Convos",
             value: formatMetrics(newSnapshot.totalConvos, lastSnapshot?.totalConvos),
             inline: true,
           },
           {
-            name: "Total Convo Entires",
+            name: "Convo Entires",
             value: formatMetrics(newSnapshot.totalConvoEntires, lastSnapshot?.totalConvoEntires),
             inline: true,
           },
           {
-            name: "Total Convo Attachments",
+            name: "Convo Attachments",
             value: formatMetrics(
               newSnapshot.totalConvoAttachments,
               lastSnapshot?.totalConvoAttachments,
@@ -37,32 +37,32 @@ export async function sendReport(newSnapshot: Snapshot, lastSnapshot: Snapshot |
             inline: true,
           },
           {
-            name: "Total Orgs",
+            name: "Orgs",
             value: formatMetrics(newSnapshot.totalOrgs, lastSnapshot?.totalOrgs),
             inline: true,
           },
           {
-            name: "Total Org Members",
+            name: "Org Members",
             value: formatMetrics(newSnapshot.totalOrgMembers, lastSnapshot?.totalOrgMembers),
             inline: true,
           },
           {
-            name: "Total Teams",
+            name: "Teams",
             value: formatMetrics(newSnapshot.totalTeams, lastSnapshot?.totalTeams),
             inline: true,
           },
           {
-            name: "Total Domains",
+            name: "Domains",
             value: formatMetrics(newSnapshot.totalDomains, lastSnapshot?.totalDomains),
             inline: true,
           },
           {
-            name: "Total Contacts",
+            name: "Contacts",
             value: formatMetrics(newSnapshot.totalContacts, lastSnapshot?.totalContacts),
             inline: true,
           },
           {
-            name: "Total Email Identities",
+            name: "Email Identities",
             value: formatMetrics(
               newSnapshot.totalEmailIdentities,
               lastSnapshot?.totalEmailIdentities,
@@ -70,17 +70,17 @@ export async function sendReport(newSnapshot: Snapshot, lastSnapshot: Snapshot |
             inline: true,
           },
           {
-            name: "Total Paying Orgs",
+            name: "Paying Orgs",
             value: formatMetrics(newSnapshot.totalPayingOrgs, lastSnapshot?.totalPayingOrgs),
             inline: true,
           },
           {
-            name: "Total Paying Members",
+            name: "Paying Members",
             value: formatMetrics(newSnapshot.totalPayingMembers, lastSnapshot?.totalPayingMembers),
             inline: true,
           },
           {
-            name: "Total Github Contributors",
+            name: "Github Contributors",
             value: formatMetrics(
               newSnapshot.totalGithubContributors,
               lastSnapshot?.totalGithubContributors,
@@ -88,7 +88,7 @@ export async function sendReport(newSnapshot: Snapshot, lastSnapshot: Snapshot |
             inline: true,
           },
           {
-            name: "Total Github Stars",
+            name: "Github Stars",
             value: formatMetrics(newSnapshot.totalGithubStars, lastSnapshot?.totalGithubStars),
             inline: true,
           },
