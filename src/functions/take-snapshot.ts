@@ -1,12 +1,11 @@
 import { dataClient } from "../db/data-client";
 import { snapshots } from "../db/schema";
-import { setSnapshot } from "../cache";
 import { db } from "../db";
 import { z } from "zod";
 
 async function getCurrentTotal(table: string) {
   const { rows } = await dataClient.execute(`SELECT id FROM ${table} ORDER BY id DESC LIMIT 0, 1`);
-  return Number(rows[0]?.["id"]) ?? 0;
+  return Number(rows[0]?.["id"]) || 0;
 }
 
 async function getTableCounts() {
@@ -32,11 +31,11 @@ async function getTableCounts() {
 
 async function getPayingOrgCount() {
   const { rows } = await dataClient.execute(`
-    SELECT COUNT(*) as count
+    SELECT COUNT(*) AS count
     FROM org_billing
     WHERE plan='pro'
   `);
-  return Number(rows[0]?.count) ?? 0;
+  return Number(rows[0]?.count) || 0;
 }
 
 async function getPayingMembersCount() {
@@ -46,7 +45,7 @@ async function getPayingMembersCount() {
     JOIN org_members ON org_billing.org_id = org_members.org_id
     WHERE org_billing.plan = 'pro'
   `);
-  return Number(rows[0]?.count) ?? 0;
+  return Number(rows[0]?.count) || 0;
 }
 
 async function getGithubStats() {
@@ -91,6 +90,5 @@ export async function takeSnapshot() {
     })
     .returning();
   if (!snapshot) throw new Error("Failed to take snapshot");
-  setSnapshot(snapshot);
   return snapshot;
 }

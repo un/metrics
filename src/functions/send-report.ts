@@ -1,8 +1,9 @@
-import type { Snapshot } from "../cache";
-import { env } from "../env";
+import { EmbedBuilder } from "@discordjs/builders";
+import type { Snapshot } from "../utils";
+import { Resource } from "sst";
 
 const formatMetrics = (now: number, old?: number) =>
-  `${now} (**${now >= (old ?? 0) ? "+" : "-"}${now - (old ?? 0)}** vs Yesterday)`;
+  `${now} (**${now >= (old || 0) ? "+" : "-"}${now - (old || 0)}** vs Yesterday)`;
 
 export async function sendReport(newSnapshot: Snapshot, lastSnapshot: Snapshot | null) {
   const message = {
@@ -101,7 +102,31 @@ export async function sendReport(newSnapshot: Snapshot, lastSnapshot: Snapshot |
     attachments: [],
   };
 
-  await fetch(env.DISCORD_WEBHOOK_URL, {
+  await fetch(Resource.DiscordWebhookUrl.value, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(message),
+  }).catch(console.error);
+}
+
+export async function sendCrashReport(error: string) {
+  const message = {
+    content: null,
+    embeds: [
+      {
+        title: "Daily Metrics Report encountered an error",
+        description: `Error: ${error}`,
+        color: 3333923,
+      },
+    ],
+    username: "UnMetrics",
+    avatar_url:
+      "https://cdn.discordapp.com/icons/1113119653246545961/5c9be16d31e034a1531bfa195a986c2f.webp",
+    attachments: [],
+  };
+  await fetch(Resource.DiscordWebhookUrl.value, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

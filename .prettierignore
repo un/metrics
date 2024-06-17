@@ -1,6 +1,3 @@
 node_modules
-dist
-.env
-
-# sst
 .sst
+pnpm-lock.yaml

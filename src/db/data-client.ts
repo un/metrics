@@ -1,6 +1,6 @@
 import { Client } from "@planetscale/database";
-import { env } from "../env";
+import { Resource } from "sst";
 
 export const dataClient = new Client({
-  url: env.PLANETSCALE_DB_URI,
+  url: Resource.PlanetScaleDbUri.value,
 });

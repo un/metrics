@@ -4,33 +4,31 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "tsx watch --clear-screen=false src/app.ts",
-    "build": "echo 'No Build Step'",
-    "start": "node --import=tsx src/app.ts",
-    "db:studio": "drizzle-kit studio",
-    "db:push": "drizzle-kit push"
+    "dev": "sst dev",
+    "deploy": "sst deploy --stage prod",
+    "load-env": "sst secret load .env",
+    "register-cmd": "tsx register.ts",
+    "db:push": "drizzle-kit push",
+    "db:studio": "drizzle-kit studio"
   },
   "dependencies": {
-    "@hono/node-server": "^1.11.2",
+    "@discordjs/builders": "^1.8.2",
     "@planetscale/database": "^1.18.0",
-    "@t3-oss/env-core": "^0.10.1",
-    "cron": "^3.1.7",
     "date-fns": "^3.6.0",
+    "discord-interactions": "^4.0.0",
     "drizzle-orm": "^0.31.0",
-    "hono": "^4.4.3",
-    "itty-time": "^1.0.6",
     "postgres": "^3.4.4",
-    "unstorage": "^1.10.2",
+    "sst": "ion",
+    "tsx": "^4.15.6",
     "zod": "^3.23.8"
   },
   "devDependencies": {
-    "@types/node": "^20.14.0",
+    "@types/aws-lambda": "8.10.138",
     "@u22n/tsconfig": "^0.0.2",
     "dotenv": "^16.4.5",
     "drizzle-kit": "^0.22.1",
     "prettier": "^3.3.0",
     "prettier-plugin-sort-imports": "^1.8.5",
-    "tsx": "^4.11.2",
     "typescript": "^5.4.5"
   },
   "packageManager": "pnpm@9.1.0"

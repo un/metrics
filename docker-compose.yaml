@@ -1,9 +1,0 @@
-services:
-  db:
-    image: postgres:16
-    environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: secretpassword
-      POSTGRES_DB: unmetrics
-    ports:
-      - "5432:5432"
